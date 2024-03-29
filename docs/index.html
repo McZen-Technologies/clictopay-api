@@ -1,1 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unofficial Documentation for Clictopay API</title>
+  </head>
+  <body>
+    <script id="api-reference" data-url="../spec.json"></script>
+    <script>
+      var configuration = {
+        theme: 'purple',
+      }
 
+      var apiReference = document.getElementById('api-reference')
+      apiReference.dataset.configuration = JSON.stringify(configuration)
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+  </body>
+</html>
