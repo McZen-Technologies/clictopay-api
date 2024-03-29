@@ -1,2 +1,1 @@
-# clictopay-api
-Unofficial Documentation for Clictopay API
+# Unofficial Documentation for Clictopay API
