@@ -1,197 +1,200 @@
 {
-  "openapi": "3.0.3",
-  "info": {
-    "title": "Unofficial Documentation for Clictopay API",
-    "description": "This documentation is based on the file provided via this link: [Clictopay API File](https://www.linkedin.com/posts/mohamedsafouanbesrour_manuel-int%C3%A9gration-activity-7167533794663489536-LFQW)",
-    "version": "1.0.0"
-  },
-  "paths": {
-    "/register.do": {
-      "post": {
-        "summary": "Initiate Payment",
-        "description": "Initiates a payment transaction.",
-        "tags": ["Payment"],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "required": true,
-                "type": "object",
-                "properties": {
-                  "userName": {
-                    "type": "string",
-                    "maxLength": 30,
-                    "example": "123456789",
-                    "description": "Merchant login received during integration."
-                  },
-                  "password": {
-                    "type": "string",
-                    "maxLength": 30,
-                    "example": "6E2OCk4sx",
-                    "description": "Merchant password received during integration."
-                  },
-                  "orderNumber": {
-                    "type": "string",
-                    "maxLength": 32,
-                    "example": "ea540dac-cd5b-42b9-b562-e0313d2c75f4",
-                    "description": "Number (identifier) of the order in the merchant's system."
-                  },
-                  "amount": {
-                    "type": "integer",
-                    "example": 125500,
-                    "description": "Minimum order amount in (e.g. cents)."
-                  },
-                  "currency": {
-                    "type": "integer",
-                    "example": 788,
-                    "description": "Payment currency code, according to ISO 4217 STANDARD"
-                  },
-                  "returnUrl": {
-                    "type": "string",
-                    "maxLength": 512,
-                    "example": "https://yourwebsite.com/success",
-                    "description": "Web address where the customer should be redirected after successful payment."
-                  },
-                  "language": {
-                    "type": "string",
-                    "example": "fr",
-                    "description": "Language according to ISO 639-1. If not specified, the system uses the default language from the merchant's merchant settings."
-                  }
-                },
-                "required": [
-                  "userName",
-                  "password",
-                  "orderNumber",
-                  "amount",
-                  "currency",
-                  "returnUrl"
-                ]
-              },
-              "example": {
-                "userName": "123456789",
-                "password": "6E2OCk4sx",
-                "orderNumber": "ea540dac-cd5b-42b9-b562-e0313d2c75f4",
-                "amount": 125500,
-                "currency": 788,
-                "returnUrl": "https://yourwebsite.com/success"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "orderId": {
-                      "type": "string",
-                      "description": "Unique identifier for the initiated order."
-                    },
-                    "formUrl": {
-                      "type": "string",
-                      "description": "URL for the payment form."
-                    }
-                  }
-                },
-                "example": {
-                  "orderId": "dca711c0-9793-7fae-8433-75c00008e5f1",
-                  "formUrl": "https://test.clictopay.com/payment/merchants/CLICTOPAY/payment_en.html?mdOrder=dca711c0-9793-7fae-8433-75c00008e5f1"
-                }
-              }
-            }
-          }
-        },
-        "security": []
-      }
-    },
-    "/getOrderStatus.do": {
-      "get": {
-        "summary": "Get Payment Details",
-        "description": "Retrieves the status of a payment order.",
-        "tags": ["Payment"],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "query",
-            "example": "dca711c0-9793-7fae-8433-75c00008e5f1",
-            "description": "The ID of the order",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "language",
-            "in": "query",
-            "example": "fr",
-            "description": "The language code",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "example": "6E2OCk4sx",
-            "description": "The password for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userName",
-            "in": "query",
-            "example": "123456789",
-            "description": "The username for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": {
-                  "depositAmount": 0,
-                  "currency": "788",
-                  "authCode": 2,
-                  "ErrorCode": "0",
-                  "ErrorMessage": "Success",
-                  "OrderStatus": 0,
-                  "OrderNumber": "dca711c0-9793-7fae-8433-75c00008e5f1",
-                  "Amount": 125500
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "servers": [
-    {
-      "url": "https://test.clictopay.com/payment/rest",
-      "description": "Sandbox environment"
-    },
-    {
-      "url": "https://ipay.clictopay.com/payment/rest",
-      "description": "Production environment"
-    }
-  ],
-  "tags": [
-    {
-      "name": "Payment",
-      "description": "Operations related to payment"
-    }
-  ],
-  "components": {}
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Unofficial Documentation for Clictopay API",
+		"description": "This documentation is based on the file provided via this link: [Clictopay API File](https://www.linkedin.com/posts/mohamedsafouanbesrour_manuel-int%C3%A9gration-activity-7167533794663489536-LFQW)",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/register.do": {
+			"post": {
+				"summary": "Initiate Payment",
+				"description": "Initiates a payment transaction.",
+				"tags": [
+					"Payment"
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"userName": {
+										"type": "string",
+										"maxLength": 30,
+										"example": "123456789",
+										"description": "Merchant login received during integration."
+									},
+									"password": {
+										"type": "string",
+										"maxLength": 30,
+										"example": "6E2OCk4sx",
+										"description": "Merchant password received during integration."
+									},
+									"orderNumber": {
+										"type": "string",
+										"maxLength": 32,
+										"example": "ea540dac-cd5b-42b9-b562-e0313d2c75f4",
+										"description": "Number (identifier) of the order in the merchant's system."
+									},
+									"amount": {
+										"type": "integer",
+										"example": 125500,
+										"description": "Minimum order amount in (e.g. cents)."
+									},
+									"currency": {
+										"type": "integer",
+										"example": 788,
+										"description": "Payment currency code, according to ISO 4217 STANDARD"
+									},
+									"returnUrl": {
+										"type": "string",
+										"maxLength": 512,
+										"example": "https://yourwebsite.com/success",
+										"description": "Web address where the customer should be redirected after successful payment."
+									},
+									"language": {
+										"type": "string",
+										"example": "fr",
+										"description": "Language according to ISO 639-1. If not specified, the system uses the default language from the merchant's merchant settings."
+									}
+								},
+								"required": [
+									"userName",
+									"password",
+									"orderNumber",
+									"amount",
+									"currency",
+									"returnUrl"
+								]
+							},
+							"example": {
+								"userName": "123456789",
+								"password": "6E2OCk4sx",
+								"orderNumber": "ea540dac-cd5b-42b9-b562-e0313d2c75f4",
+								"amount": 125500,
+								"currency": 788,
+								"returnUrl": "https://yourwebsite.com/success"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"orderId": {
+											"type": "string",
+											"description": "Unique identifier for the initiated order."
+										},
+										"formUrl": {
+											"type": "string",
+											"description": "URL for the payment form."
+										}
+									}
+								},
+								"example": {
+									"orderId": "dca711c0-9793-7fae-8433-75c00008e5f1",
+									"formUrl": "https://test.clictopay.com/payment/merchants/CLICTOPAY/payment_en.html?mdOrder=dca711c0-9793-7fae-8433-75c00008e5f1"
+								}
+							}
+						}
+					}
+				},
+				"security": []
+			}
+		},
+		"/getOrderStatus.do": {
+			"get": {
+				"summary": "Get Payment Details",
+				"description": "Retrieves the status of a payment order.",
+				"tags": [
+					"Payment"
+				],
+				"parameters": [
+					{
+						"name": "orderId",
+						"in": "query",
+						"example": "dca711c0-9793-7fae-8433-75c00008e5f1",
+						"description": "The ID of the order",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "language",
+						"in": "query",
+						"example": "fr",
+						"description": "The language code",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "password",
+						"in": "query",
+						"example": "6E2OCk4sx",
+						"description": "The password for authentication",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "userName",
+						"in": "query",
+						"example": "123456789",
+						"description": "The username for authentication",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"example": {
+									"depositAmount": 0,
+									"currency": "788",
+									"authCode": 2,
+									"ErrorCode": "0",
+									"ErrorMessage": "Success",
+									"OrderStatus": 0,
+									"OrderNumber": "dca711c0-9793-7fae-8433-75c00008e5f1",
+									"Amount": 125500
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "https://test.clictopay.com/payment/rest",
+			"description": "Sandbox environment"
+		},
+		{
+			"url": "https://ipay.clictopay.com/payment/rest",
+			"description": "Production environment"
+		}
+	],
+	"tags": [
+		{
+			"name": "Payment",
+			"description": "Operations related to payment"
+		}
+	],
+	"components": {}
 }
